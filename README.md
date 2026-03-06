@@ -164,10 +164,3 @@ feature/xyz  →  PR  →  develop  →  GitHub Actions  →  Azure
 develop          ← stable, auto-deploys to Azure
 └── feature/*    ← one branch per feature, PR into develop
 ```
-
----
-
-## 👤 Author
-
-Built as a university project by **Ivan Kovatchev**  
-Season: **2025–26 NBA**
