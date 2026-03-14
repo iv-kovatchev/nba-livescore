@@ -7,12 +7,16 @@ import teamRoutes from './routes/teamRoutes';
 import playerRoutes from './routes/playerRoutes';
 import arenaRoutes from './routes/arenaRoutes';
 import gameRoutes from './routes/gameRoutes';
+import syncRoutes from './routes/syncRoutes';
+import { startCronJobs } from './config/cron';
 
 dns.setDefaultResultOrder('ipv4first');
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 dotenv.config();
 connectDB();
+
+startCronJobs();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,6 +33,7 @@ app.use('/api/teams', teamRoutes);
 app.use('/api/players', playerRoutes);
 app.use('/api/arenas', arenaRoutes);
 app.use('/api/games', gameRoutes);
+app.use('/api/sync', syncRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
