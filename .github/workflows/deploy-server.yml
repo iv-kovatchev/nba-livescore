@@ -1,0 +1,36 @@
+name: Deploy Server to Azure
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Server
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: |
+          cd server
+          npm install
+
+      - name: Build
+        run: |
+          cd server
+          npm run build
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'nba-livescore-api'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./server
