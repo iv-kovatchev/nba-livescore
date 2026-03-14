@@ -1,14 +1,16 @@
-@use '../../styles/variables/mixins' as *;
+@use "../../styles/variables/mixins" as *;
 
 .sidebar {
   width: 220px;
-  min-height: 100vh;
+  height: 100vh;
+  position: sticky;
   background: var(--bg-secondary);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
+  overflow-y: auto;
 
   &__logo {
     display: flex;

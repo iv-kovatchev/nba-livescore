@@ -9,7 +9,7 @@ export interface ITeam extends Document {
   colors: string[];
   logo: string;
   arena: mongoose.Types.ObjectId;
-  sportRadarId: string;
+  externalId: Number;
 }
 
 const TeamSchema: Schema = new Schema<ITeam>({
@@ -21,7 +21,7 @@ const TeamSchema: Schema = new Schema<ITeam>({
     colors: { type: [String] },
     logo: { type: String },
     arena: { type: Schema.Types.ObjectId, ref: "Arena" },
-    sportRadarId: { type: String, required: true }
+    externalId: { type: Number, unique: true, sparse: true },
 });
 
 export default mongoose.model<ITeam>('Team', TeamSchema);

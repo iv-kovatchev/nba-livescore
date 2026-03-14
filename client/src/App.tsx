@@ -4,6 +4,7 @@ import Games from "./pages/Games/Games";
 import Standings from "./pages/Standings/Standings";
 import Teams from "./pages/Teams/Teams";
 import Players from "./pages/Players/Players";
+import GameDetail from "./pages/GameDetail/GameDetail";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/*" element={<Layout />}>
           <Route index element={<Navigate to="/games" replace />} />
           <Route path="games" element={<Games />} />
+          <Route path="games/:id" element={<GameDetail />} />
           <Route path="standings" element={<Standings />} />
           <Route path="teams" element={<Teams />} />
           <Route path="players" element={<Players />} />
