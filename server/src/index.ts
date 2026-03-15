@@ -1,17 +1,17 @@
-import express from 'express';
-import cors from 'cors';
-import dns from 'dns';
-import dotenv from 'dotenv';
-import connectDB from './config/db';
-import teamRoutes from './routes/teamRoutes';
-import playerRoutes from './routes/playerRoutes';
-import arenaRoutes from './routes/arenaRoutes';
-import gameRoutes from './routes/gameRoutes';
-import syncRoutes from './routes/syncRoutes';
-import { startCronJobs } from './config/cron';
+import express from "express";
+import cors from "cors";
+import dns from "dns";
+import dotenv from "dotenv";
+import connectDB from "./config/db";
+import teamRoutes from "./routes/teamRoutes";
+import playerRoutes from "./routes/playerRoutes";
+import arenaRoutes from "./routes/arenaRoutes";
+import gameRoutes from "./routes/gameRoutes";
+import syncRoutes from "./routes/syncRoutes";
+import { startCronJobs } from "./config/cron";
 
-dns.setDefaultResultOrder('ipv4first');
-dns.setServers(['8.8.8.8', '8.8.4.4']);
+dns.setDefaultResultOrder("ipv4first");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 dotenv.config();
 connectDB();
@@ -21,19 +21,23 @@ startCronJobs();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://victorious-bush-030cd0403.6.azurestaticapps.net",
+  }),
+);
 app.use(express.json());
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
 });
 
 //routes
-app.use('/api/teams', teamRoutes);
-app.use('/api/players', playerRoutes);
-app.use('/api/arenas', arenaRoutes);
-app.use('/api/games', gameRoutes);
-app.use('/api/sync', syncRoutes);
+app.use("/api/teams", teamRoutes);
+app.use("/api/players", playerRoutes);
+app.use("/api/arenas", arenaRoutes);
+app.use("/api/games", gameRoutes);
+app.use("/api/sync", syncRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
