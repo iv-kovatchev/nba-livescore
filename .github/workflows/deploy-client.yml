@@ -34,7 +34,7 @@ jobs:
           app_build_command: "npm install && npm run build"
           ###### End of Repository/Build Configurations ######
         env:
-          VITE_API_URL: https://nba-livescore-api.azurewebsites.net
+          VITE_API_URL: https://nba-livescore-production.up.railway.app
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
