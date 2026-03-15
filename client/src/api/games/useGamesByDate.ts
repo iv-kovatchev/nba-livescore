@@ -6,5 +6,5 @@ export const useGamesByDate = (date: string) =>
   useQuery({
     queryKey: ['games', date],
     queryFn: () => http.get<IGame[]>(`/api/games/by-date?date=${date}`),
-    refetchInterval: 60 * 1000,
+    refetchInterval: 20 * 1000,
   });
