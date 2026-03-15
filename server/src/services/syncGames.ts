@@ -1,11 +1,16 @@
-import Team from '../models/Team';
-import Game from '../models/Game';
-import { ballDontLieService } from './balldontlie';
+import Team from "../models/Team";
+import Game from "../models/Game";
+import { ballDontLieService } from "./balldontlie";
 
-const mapStatus = (status: string): 'scheduled' | 'live' | 'final' => {
-  if (status === 'Final') return 'final';
-  if (status.includes('Qtr') || status.includes('Half') || status.includes('OT')) return 'live';
-  return 'scheduled';
+const mapStatus = (status: string): "scheduled" | "live" | "final" => {
+  if (status === "Final") return "final";
+  if (
+    status.includes("Qtr") ||
+    status.includes("Half") ||
+    status.includes("OT")
+  )
+    return "live";
+  return "scheduled";
 };
 
 export const syncGamesByDate = async (date: string) => {
@@ -29,11 +34,21 @@ export const syncGamesByDate = async (date: string) => {
         date: new Date(eg.datetime),
         status,
         quarter: eg.period ?? 0,
-        clock: eg.time ?? '',
+        clock: eg.time ?? "",
         arena: homeTeam.arena,
         externalId: eg.id,
+        homeQ1: eg.home_q1,
+        homeQ2: eg.home_q2,
+        homeQ3: eg.home_q3,
+        homeQ4: eg.home_q4,
+        homeOT: eg.home_ot1,
+        awayQ1: eg.visitor_q1,
+        awayQ2: eg.visitor_q2,
+        awayQ3: eg.visitor_q3,
+        awayQ4: eg.visitor_q4,
+        awayOT: eg.visitor_ot1,
       },
-      { upsert: true, returnDocument: 'after' }
+      { upsert: true, returnDocument: "after" },
     );
   }
 

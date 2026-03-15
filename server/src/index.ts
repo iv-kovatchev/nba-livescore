@@ -8,7 +8,7 @@ import playerRoutes from "./routes/playerRoutes";
 import arenaRoutes from "./routes/arenaRoutes";
 import gameRoutes from "./routes/gameRoutes";
 import syncRoutes from "./routes/syncRoutes";
-import { startCronJobs } from "./config/cron";
+import { startCronJobs, startLiveScoreSync,  } from "./config/cron";
 
 dns.setDefaultResultOrder("ipv4first");
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
@@ -17,6 +17,7 @@ dotenv.config();
 connectDB();
 
 startCronJobs();
+startLiveScoreSync();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
