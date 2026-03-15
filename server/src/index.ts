@@ -23,7 +23,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: "https://victorious-bush-030cd0403.6.azurestaticapps.net",
+    origin: [
+      "http://localhost:5173",
+      "https://victorious-bush-030cd0403.6.azurestaticapps.net",
+    ],
   }),
 );
 app.use(express.json());
