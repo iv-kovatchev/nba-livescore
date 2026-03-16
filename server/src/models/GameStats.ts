@@ -2,42 +2,60 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IGameStats extends Document {
   game: mongoose.Types.ObjectId;
-  player: mongoose.Types.ObjectId;
-  team: mongoose.Types.ObjectId;
-  points: number;
-  rebounds: number;
-  assists: number;
-  steals: number;
-  blocks: number;
-  turnovers: number;
-  minutesPlayed: string;
-  fieldGoalsMade: number;
-  fieldGoalsAttempted: number;
-  threesMade: number;
-  threesAttempted: number;
-  freeThrowsMade: number;
-  freeThrowsAttempted: number;
-  plusMinus: number;
+  player: {
+    externalId: number;
+    firstName: string;
+    lastName: string;
+    position: string;
+    jerseyNumber: string | null;
+  };
+  team: {
+    externalId: number;
+    abbreviation: string;
+  };
+  min: string;
+  pts: number;
+  reb: number;
+  ast: number;
+  stl: number;
+  blk: number;
+  fgm: number;
+  fga: number;
+  fg3m: number;
+  fg3a: number;
+  ftm: number;
+  fta: number;
+  plus_minus: number;
 }
 
 const GameStatsSchema = new Schema<IGameStats>({
   game: { type: Schema.Types.ObjectId, ref: "Game", required: true },
-  player: { type: Schema.Types.ObjectId, ref: "Player", required: true },
-  team: { type: Schema.Types.ObjectId, ref: "Team", required: true },
-  points: { type: Number, default: 0 },
-  rebounds: { type: Number, default: 0 },
-  assists: { type: Number, default: 0 },
-  steals: { type: Number, default: 0 },
-  blocks: { type: Number, default: 0 },
-  turnovers: { type: Number, default: 0 },
-  minutesPlayed: { type: String, default: "0:00" },
-  fieldGoalsMade: { type: Number, default: 0 },
-  fieldGoalsAttempted: { type: Number, default: 0 },
-  threesMade: { type: Number, default: 0 },
-  threesAttempted: { type: Number, default: 0 },
-  freeThrowsMade: { type: Number, default: 0 },
-  freeThrowsAttempted: { type: Number, default: 0 },
-  plusMinus: { type: Number, default: 0 },
+  player: {
+    externalId: { type: Number, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    position: { type: String, default: "" },
+    jerseyNumber: { type: String, default: null },
+  },
+  team: {
+    externalId: { type: Number, required: true },
+    abbreviation: { type: String, required: true },
+  },
+  min: { type: String, default: "0" },
+  pts: { type: Number, default: 0 },
+  reb: { type: Number, default: 0 },
+  ast: { type: Number, default: 0 },
+  stl: { type: Number, default: 0 },
+  blk: { type: Number, default: 0 },
+  fgm: { type: Number, default: 0 },
+  fga: { type: Number, default: 0 },
+  fg3m: { type: Number, default: 0 },
+  fg3a: { type: Number, default: 0 },
+  ftm: { type: Number, default: 0 },
+  fta: { type: Number, default: 0 },
+  plus_minus: { type: Number, default: 0 },
 });
+
+GameStatsSchema.index({ game: 1, "player.externalId": 1 }, { unique: true });
 
 export default mongoose.model<IGameStats>("GameStats", GameStatsSchema);

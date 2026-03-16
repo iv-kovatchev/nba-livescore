@@ -54,11 +54,74 @@ router.get("/:id", async (req: Request, res: Response) => {
 
 router.get("/:id/stats", async (req: Request, res: Response) => {
   try {
-    const stats = await GameStats.find({ game: req.params.id })
-      .populate("player")
-      .populate("team");
-    res.json(stats);
+    const game = await Game.findById(req.params.id);
+    if (!game) return res.status(404).json({ message: "Game not found" });
+
+    // For final games check cache first
+    if (game.status === "final") {
+      const cached = await GameStats.find({ game: game._id });
+      if (cached.length > 0) {
+        return res.json(cached);
+      }
+    }
+
+    // Fetch from balldontlie
+    if (!game.externalId) return res.json([]);
+
+    const apiKey = process.env.BALLDONTLIE_API_KEY;
+    const bdlRes = await fetch(
+      `https://api.balldontlie.io/nba/v1/stats?game_ids[]=${game.externalId}&per_page=100`,
+      { headers: { Authorization: apiKey as string } },
+    );
+
+    if (!bdlRes.ok) return res.json([]);
+
+    const json = await bdlRes.json();
+    const rawStats = json.data;
+
+    if (!rawStats || rawStats.length === 0) return res.json([]);
+
+    // For final games save to MongoDB
+    if (game.status === "final") {
+      await GameStats.deleteMany({ game: game._id });
+
+      const docs = rawStats.map((s: any) => ({
+        game: game._id,
+        player: {
+          externalId: s.player.id,
+          firstName: s.player.first_name,
+          lastName: s.player.last_name,
+          position: s.player.position,
+          jerseyNumber: s.player.jersey_number,
+        },
+        team: {
+          externalId: s.team.id,
+          abbreviation: s.team.abbreviation,
+        },
+        min: s.min,
+        pts: s.pts,
+        reb: s.reb,
+        ast: s.ast,
+        stl: s.stl,
+        blk: s.blk,
+        fgm: s.fgm,
+        fga: s.fga,
+        fg3m: s.fg3m,
+        fg3a: s.fg3a,
+        ftm: s.ftm,
+        fta: s.fta,
+        plus_minus: s.plus_minus,
+      }));
+
+      await GameStats.insertMany(docs);
+      const saved = await GameStats.find({ game: game._id });
+      return res.json(saved);
+    }
+
+    // For live games return directly without saving
+    return res.json(rawStats);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 });
