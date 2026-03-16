@@ -29,6 +29,21 @@ export const startCronJobs = () => {
     { timezone: "America/New_York" },
   );
 
+  // Cron 3 - Every day 3AM ET - re-sync yesterday to catch missed finals
+  cron.schedule(
+    "0 3 * * *",
+    async () => {
+      try {
+        const yesterday = getETDate(-1);
+        console.log(`Cron: re-syncing yesterday ${yesterday}`);
+        await syncGamesByDate(yesterday);
+      } catch (error) {
+        console.log("Failed re-syncing yesterday");
+      }
+    },
+    { timezone: "America/New_York" },
+  );
+
   //Cron 2 - Every 1 min, 1PM-1AM ET - sync live scores
   // cron.schedule('* 13-23,0,1 * * *', async () => {
   //   try {

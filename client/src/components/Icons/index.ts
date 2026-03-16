@@ -10,4 +10,5 @@ export {
   FiSearch,
   FiMenu,
   FiX,
+  FiArrowLeft,
 } from 'react-icons/fi';
