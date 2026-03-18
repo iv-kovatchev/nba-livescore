@@ -1,3 +1,5 @@
+@use "../../styles/variables/mixins" as *;
+
 .layout {
   display: flex;
   min-height: 100vh;
@@ -8,5 +10,9 @@
     padding: 28px 32px;
     overflow-y: auto;
     height: 100vh;
+
+    @include md {
+      padding-left: 98px;
+    }
   }
 }

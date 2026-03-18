@@ -4,25 +4,39 @@
   width: 220px;
   height: 100vh;
   position: sticky;
+  top: 0;
   background: var(--bg-secondary);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  transition: all 0.3s ease;
-  overflow-y: auto;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--border);
+    min-height: 72px;
+    gap: var(--space-2);
+  }
 
   &__logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 28px 24px;
-    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+
+    &--collapsed {
+      display: none;
+    }
   }
 
   &__logo-icon {
     width: 32px;
     height: 32px;
+    min-width: 32px;
     background: var(--accent);
     border-radius: 8px;
     display: flex;
@@ -31,6 +45,7 @@
     font-weight: var(--font-bold);
     font-size: var(--text-lg);
     color: var(--white);
+    flex-shrink: 0;
   }
 
   &__logo-text {
@@ -38,9 +53,29 @@
     font-weight: var(--font-bold);
     color: var(--text-primary);
     letter-spacing: 1px;
+    white-space: nowrap;
 
     span {
       color: var(--accent);
+    }
+  }
+
+  &__toggle {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    color: var(--text-muted);
+    background: var(--bg-elevated);
+    transition: all 0.2s;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &:hover {
+      color: var(--text-primary);
     }
   }
 
@@ -48,8 +83,9 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: 16px 12px;
+    padding: 16px 10px;
     flex: 1;
+    overflow: hidden;
   }
 
   &__nav-label {
@@ -58,20 +94,26 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--text-muted);
-    padding: 8px 12px 4px;
+    padding: 8px 8px 4px;
     margin-top: 8px;
+    white-space: nowrap;
+
+    &--collapsed {
+      opacity: 0;
+    }
   }
 
   &__nav-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 12px;
+    padding: 10px 8px;
     border-radius: 8px;
     font-size: var(--text-md);
     font-weight: var(--font-regular);
     color: var(--text-muted);
     transition: all 0.2s;
+    white-space: nowrap;
 
     &:hover {
       background: var(--bg-elevated);
@@ -86,25 +128,28 @@
     svg {
       font-size: var(--text-lg);
       flex-shrink: 0;
+      min-width: 20px;
     }
   }
 
   &__bottom {
-    padding: 16px 12px;
+    padding: 16px 10px;
     border-top: 1px solid var(--border);
   }
 
   &__theme-toggle {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
     width: 100%;
-    padding: 10px 12px;
+    padding: 10px 8px;
     border-radius: 8px;
     background: var(--bg-elevated);
     color: var(--text-muted);
     font-size: var(--text-sm);
     transition: all 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
 
     &:hover {
       color: var(--text-primary);
@@ -112,6 +157,22 @@
 
     svg {
       font-size: var(--text-lg);
+      flex-shrink: 0;
+      min-width: 20px;
+    }
+  }
+
+  // Mobile behavior
+  @include md {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    width: 60px;
+    transition: width 0.3s ease;
+
+    &--expanded {
+      width: 220px;
     }
   }
 }
