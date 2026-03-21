@@ -67,7 +67,7 @@
     margin-bottom: var(--space-6);
 
     @include md {
-      gap: var(--space-3);
+      gap: var(--space-2);
     }
   }
 
@@ -88,8 +88,8 @@
     object-fit: contain;
 
     @include md {
-      width: 56px;
-      height: 56px;
+      width: 40px;
+      height: 40px;
     }
   }
 
@@ -97,18 +97,30 @@
     font-size: var(--text-sm);
     color: var(--text-muted);
     font-weight: var(--font-regular);
+
+    @include md {
+      font-size: var(--text-xs);
+    }
   }
 
   &__name {
     font-size: var(--text-base);
     font-weight: var(--font-bold);
     color: var(--text-primary);
+
+    @include md {
+      font-size: var(--text-sm);
+    }
   }
 
   &__score {
     display: flex;
     align-items: center;
     gap: var(--space-4);
+
+    @include md {
+      gap: var(--space-2);
+    }
   }
 
   &__score-num {
@@ -122,13 +134,17 @@
     }
 
     @include md {
-      font-size: var(--text-3xl);
+      font-size: var(--text-2xl);
     }
   }
 
   &__score-divider {
     font-size: var(--text-2xl);
     color: var(--text-muted);
+
+    @include md {
+      font-size: var(--text-lg);
+    }
   }
 
   &__vs {
@@ -141,5 +157,9 @@
     text-align: center;
     font-size: var(--text-sm);
     color: var(--text-muted);
+
+    @include md {
+      font-size: var(--text-xs);
+    }
   }
 }

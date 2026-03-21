@@ -8,6 +8,7 @@ import playerRoutes from "./routes/playerRoutes";
 import arenaRoutes from "./routes/arenaRoutes";
 import gameRoutes from "./routes/gameRoutes";
 import syncRoutes from "./routes/syncRoutes";
+import standingRoutes from "./routes/standingsRoutes";
 import { startCronJobs, startLiveScoreSync,  } from "./config/cron";
 
 dns.setDefaultResultOrder("ipv4first");
@@ -42,6 +43,7 @@ app.use("/api/players", playerRoutes);
 app.use("/api/arenas", arenaRoutes);
 app.use("/api/games", gameRoutes);
 app.use("/api/sync", syncRoutes);
+app.use("/api/standings", standingRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

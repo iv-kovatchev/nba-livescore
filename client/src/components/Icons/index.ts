@@ -1,4 +1,4 @@
-export { 
+export {
   FiActivity,
   FiAward,
   FiUsers,
@@ -7,8 +7,9 @@ export {
   FiMoon,
   FiChevronRight,
   FiChevronLeft,
+  FiChevronUp,
+  FiChevronDown,
   FiSearch,
   FiMenu,
   FiX,
-  FiArrowLeft,
 } from 'react-icons/fi';

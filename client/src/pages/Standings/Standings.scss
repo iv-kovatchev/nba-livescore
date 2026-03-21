@@ -1,0 +1,225 @@
+@use "../../styles/variables/mixins" as *;
+
+.standings {
+  //max-width: 800px;
+
+  &__title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  &__subtitle {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-6);
+  }
+
+  &__tabs {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  &__tab {
+    padding: var(--space-2) var(--space-5);
+    border-radius: 8px;
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--text-primary);
+    }
+
+    &--active {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--bg-elevated);
+    }
+  }
+
+  &__legend {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  &__legend-item {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+
+    &::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    &--playoff::before {
+      background: rgba(77, 142, 240, 0.3);
+    }
+
+    &--play-in::before {
+      background: rgba(77, 142, 240, 0.1);
+    }
+  }
+
+  &__table-wrapper {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow-x: auto;
+    box-shadow: var(--shadow);
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      font-size: var(--text-xs);
+      font-weight: var(--font-bold);
+      color: var(--text-muted);
+      text-align: center;
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--bg-elevated);
+      cursor: pointer;
+    }
+
+    td {
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+      text-align: center;
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--bg-elevated);
+      cursor: pointer;
+    }
+  }
+
+  &__row--playoff td {
+    background: rgba(77, 142, 240, 0.05);
+  }
+
+  &__row--play-in td {
+    background: rgba(77, 142, 240, 0.02);
+  }
+
+  &__rank {
+    color: var(--text-muted) !important;
+    font-size: var(--text-xs) !important;
+    width: 32px;
+  }
+
+  &__team-col {
+    text-align: left !important;
+    min-width: 180px;
+  }
+
+  &__team-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-align: left !important;
+  }
+
+  &__logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  &__team-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__team-city {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  &__team-name {
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+  }
+
+  &__wins {
+    font-weight: var(--font-bold) !important;
+    color: var(--accent) !important;
+  }
+
+  &__pct {
+    font-weight: var(--font-bold) !important;
+  }
+
+  &__gp {
+    color: var(--text-muted) !important;
+  }
+
+  &__loading,
+  &__error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: var(--text-muted);
+    font-size: var(--text-base);
+  }
+
+  &__sortable {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+
+    &:hover {
+      color: var(--text-primary) !important;
+    }
+
+    .standings__sort-icon {
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    &:hover .standings__sort-icon {
+      opacity: 0.5;
+    }
+
+    .standings__sort-icon--active {
+      opacity: 1 !important;
+      color: var(--accent);
+    }
+  }
+
+  @include md {
+    &__gp {
+      display: none;
+    }
+
+    &__tab {
+      font-size: var(--text-xs);
+      padding: var(--space-2) var(--space-3);
+    }
+  }
+}
