@@ -11,6 +11,7 @@ export interface IPlayer extends Document {
   nationality: string;
   team: mongoose.Types.ObjectId;
   externalId: number;
+  photoUrl: string;
 }
 
 const PlayerSchema: Schema = new Schema<IPlayer>({
@@ -24,6 +25,7 @@ const PlayerSchema: Schema = new Schema<IPlayer>({
   nationality: { type: String },
   team: { type: Schema.Types.ObjectId, ref: "Team", required: true },
   externalId: { type: Number, unique: true, sparse: true },
+  photoUrl: { type: String, default: null },
 });
 
 export default mongoose.model<IPlayer>("Player", PlayerSchema);
