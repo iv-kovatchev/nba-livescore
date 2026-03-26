@@ -1,0 +1,99 @@
+@use "../../../styles/variables/mixins" as *;
+
+.team-arena {
+  margin-bottom: var(--space-6);
+
+  &__title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  &__card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include md {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__photo-wrapper {
+    height: 240px;
+
+    @include md {
+      height: 180px;
+    }
+  }
+
+  &__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-elevated);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+  }
+
+  &__info {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+
+  &__name {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+  }
+
+  &__location {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  &__stats {
+    display: flex;
+    gap: var(--space-6);
+    margin-top: var(--space-2);
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  &__stat-label {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: var(--font-bold);
+  }
+
+  &__stat-value {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--team-color, var(--accent));
+  }
+}
