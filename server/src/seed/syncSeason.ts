@@ -18,8 +18,8 @@ const syncSeason = async () => {
   //await Game.deleteMany({});
 
   // Sync from October 2025 to June 2026
-  const start = new Date("2026-03-13");
-  const end = new Date("2026-03-13");
+  const start = new Date("2025-10-20");
+  const end = new Date("2026-04-20");
 
   const current = new Date(start);
 
@@ -34,7 +34,7 @@ const syncSeason = async () => {
     }
 
     // Wait 1 second between requests to avoid rate limiting
-    await sleep(60000);
+    await sleep(5000);
 
     current.setDate(current.getDate() + 1);
   }
