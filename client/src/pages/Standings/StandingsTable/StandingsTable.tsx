@@ -17,7 +17,6 @@ const SortIcon = ({ active, dir }: { active: boolean; dir: SortDir }) => {
     <FiChevronUp className="standings__sort-icon standings__sort-icon--active" />
   );
 };
-
 const StandingsTable = ({
   entries,
   sortKey,
@@ -30,6 +29,9 @@ const StandingsTable = ({
     sortDir,
     onSort,
   });
+
+
+  console.log(entries);
 
   return (
     <div className="standings__table-wrapper">
@@ -69,7 +71,7 @@ const StandingsTable = ({
               <td className="standings__rank">{index + 1}</td>
               <td className="standings__team-cell">
                 <img
-                  src={`https://a.espncdn.com/i/teamlogos/nba/500/${entry.team.abbreviation.toLowerCase()}.png`}
+                  src={entry.team.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${entry.team.abbreviation.toLowerCase()}.png`}
                   alt={entry.team.name}
                   className="standings__logo"
                 />

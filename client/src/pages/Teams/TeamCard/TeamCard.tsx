@@ -14,7 +14,7 @@ const TeamCard = ({ team }: { team: ITeam }) => {
     >
       <div className="team-card__logo-wrapper">
         <img
-          src={team.logoUrl ?? `https://a.espncdn.com/i/teamlogos/nba/500/${team.abbreviation.toLowerCase()}.png`}
+          src={team.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${team.abbreviation.toLowerCase()}.png`}
           alt={team.name}
           className="team-card__logo"
         />

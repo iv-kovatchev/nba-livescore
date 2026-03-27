@@ -11,6 +11,8 @@ const GameCard = ({ game }: GameCardProps) => {
 
   const handleClick = () => navigate(`/games/${game._id}`);
 
+  console.log(game.awayTeam.logo);
+
   return (
     <div className="game-card" onClick={handleClick}>
       <div className="game-card__status">
@@ -38,7 +40,7 @@ const GameCard = ({ game }: GameCardProps) => {
         <div className="game-card__team">
           <img
             className="game-card__team-logo"
-            src={`https://a.espncdn.com/i/teamlogos/nba/500/${game.awayTeam.abbreviation.toLowerCase()}.png`}
+            src={game.awayTeam.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${game.awayTeam.abbreviation.toLowerCase()}.png`}
             alt={game.awayTeam.name}
           />
           <span className="game-card__team-name">{game.awayTeam.city}</span>
@@ -70,7 +72,7 @@ const GameCard = ({ game }: GameCardProps) => {
         <div className="game-card__team game-card__team--home">
           <img
             className="game-card__team-logo"
-            src={`https://a.espncdn.com/i/teamlogos/nba/500/${game.homeTeam.abbreviation.toLowerCase()}.png`}
+            src={game.homeTeam.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${game.homeTeam.abbreviation.toLowerCase()}.png`}
             alt={game.homeTeam.name}
           />
           <span className="game-card__team-name">{game.homeTeam.city}</span>

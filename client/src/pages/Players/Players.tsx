@@ -110,7 +110,7 @@ const Players = () => {
                 <td>
                   <div className="players__team-cell">
                     <img
-                      src={`https://a.espncdn.com/i/teamlogos/nba/500/${player.team.abbreviation.toLowerCase()}.png`}
+                      src={player.team.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${player.team.abbreviation.toLowerCase()}.png`}
                       alt={player.team.name}
                       className="players__team-logo"
                     />

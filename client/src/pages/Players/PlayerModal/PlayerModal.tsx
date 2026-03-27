@@ -70,7 +70,7 @@ const PlayerModal = ({ player, onClose }: PlayerModalProps) => {
               onClick={() => { navigate(`/teams/${player.team._id}`); onClose(); }}
             >
               <img
-                src={`https://a.espncdn.com/i/teamlogos/nba/500/${player.team.abbreviation.toLowerCase()}.png`}
+                src={player.team.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${player.team.abbreviation.toLowerCase()}.png`}
                 alt={player.team.name}
                 className="player-modal__team-logo"
               />

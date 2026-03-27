@@ -6,6 +6,6 @@ export interface ITeam {
   conference: "East" | "West";
   division: string;
   colors: string[];
-  logoUrl: string | null;
+  logo: string | null;
   externalId: number;
 }

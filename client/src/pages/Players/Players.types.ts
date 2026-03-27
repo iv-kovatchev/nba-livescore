@@ -4,6 +4,7 @@ export interface IPlayerTeam {
   city: string;
   abbreviation: string;
   colors: string[];
+  logo?: string;
 }
 
 export interface IPlayer {
