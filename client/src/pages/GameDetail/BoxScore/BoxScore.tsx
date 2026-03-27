@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./BoxScore.scss";
 import type { IGameDetailTeam, IPlayerStat } from "../GameDetail.types";
+import Tooltip from "../../../components/Tooltip/Tooltip";
 
 interface BoxScoreProps {
   stats: IPlayerStat[];
@@ -61,16 +62,38 @@ const BoxScore = ({ stats, loading, homeTeam, awayTeam }: BoxScoreProps) => {
             <thead>
               <tr>
                 <th className="box-score__player-col">Player</th>
-                <th>MIN</th>
-                <th>PTS</th>
-                <th>REB</th>
-                <th>AST</th>
-                <th>STL</th>
-                <th>BLK</th>
-                <th>FG</th>
-                <th>3P</th>
-                <th>FT</th>
-                <th>+/-</th>
+                <th>
+                  <Tooltip text="Minutes Played">MIN</Tooltip>
+                </th>
+                <th>
+                  <Tooltip text="Points">PTS</Tooltip>
+                </th>
+                <th>
+                  <Tooltip text="Rebounds">REB</Tooltip>
+                </th>
+                <th>
+                  <Tooltip text="Assists">AST</Tooltip>
+                </th>
+                <th>
+                  <Tooltip text="Steals">STL</Tooltip>
+                </th>
+                <th>
+                  <Tooltip text="Blocks">BLK</Tooltip>
+                </th>
+                <th>
+                  <Tooltip text="Field Goals Made / Attempted">FG</Tooltip>
+                </th>
+                <th>
+                  <Tooltip text="3-Pointers Made / Attempted">3P</Tooltip>
+                </th>
+                <th>
+                  <Tooltip text="Free Throws Made / Attempted">FT</Tooltip>
+                </th>
+                <th>
+                  <Tooltip maxWidth={200} text="Plus / Minus — team point differential while player is on court">
+                    +/-
+                  </Tooltip>
+                </th>
               </tr>
             </thead>
             <tbody>

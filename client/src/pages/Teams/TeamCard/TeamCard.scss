@@ -1,0 +1,75 @@
+@use "../../../styles/variables/mixins" as *;
+
+.team-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: var(--space-5);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--team-color, var(--accent));
+  }
+
+  &:hover {
+    border-color: var(--team-color, var(--accent));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  &__logo-wrapper {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include sm {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  &__logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    text-align: center;
+  }
+
+  &__city {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  &__name {
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+  }
+
+  &__division {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+}

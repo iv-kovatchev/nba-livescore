@@ -1,4 +1,4 @@
-@use '../../../styles/variables/mixins' as *;
+@use "../../../styles/variables/mixins" as *;
 
 .box-score {
   background: var(--bg-secondary);
@@ -6,6 +6,7 @@
   border-radius: 12px;
   padding: var(--space-6);
   box-shadow: var(--shadow);
+  overflow: visible;
 
   &__title {
     font-size: var(--text-md);
@@ -71,7 +72,14 @@
     width: 100%;
     border-collapse: collapse;
 
+    thead {
+      position: relative;
+      z-index: 10;
+    }
+
     th {
+      overflow: visible;
+      position: relative;
       font-size: var(--text-sm);
       font-weight: var(--font-bold);
       color: var(--text-muted);
