@@ -33,7 +33,7 @@ const BoxScore = ({ stats, loading, homeTeam, awayTeam }: BoxScoreProps) => {
           onClick={() => setActiveTab("home")}
         >
           <img
-            src={`https://a.espncdn.com/i/teamlogos/nba/500/${homeTeam.abbreviation.toLowerCase()}.png`}
+            src={homeTeam.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${homeTeam.abbreviation.toLowerCase()}.png`}
             alt={homeTeam.name}
             className="box-score__tab-logo"
           />
@@ -44,7 +44,7 @@ const BoxScore = ({ stats, loading, homeTeam, awayTeam }: BoxScoreProps) => {
           onClick={() => setActiveTab("away")}
         >
           <img
-            src={`https://a.espncdn.com/i/teamlogos/nba/500/${awayTeam.abbreviation.toLowerCase()}.png`}
+            src={awayTeam.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${awayTeam.abbreviation.toLowerCase()}.png`}
             alt={awayTeam.name}
             className="box-score__tab-logo"
           />

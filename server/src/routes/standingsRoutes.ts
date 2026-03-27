@@ -80,6 +80,7 @@ router.get("/", async (req: Request, res: Response) => {
           conference: team.conference,
           division: team.division,
           colors: team.colors,
+          logo: team.logo,
         },
         wins: record.wins,
         losses: record.losses,

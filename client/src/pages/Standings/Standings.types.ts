@@ -6,6 +6,7 @@ export interface IStandingTeam {
   conference: string;
   division: string;
   colors: string[];
+  logo?: string;
 }
 
 export interface IStandingEntry {

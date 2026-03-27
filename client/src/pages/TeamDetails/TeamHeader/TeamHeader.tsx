@@ -6,6 +6,8 @@ interface TeamHeaderProps {
 }
 
 const TeamHeader = ({ team }: TeamHeaderProps) => {
+  console.log("TeamHeader rendered with team:", team);
+
   return (
     <div
       className="team-header"
@@ -18,7 +20,7 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
       <div className="team-header__content">
         <div className="team-header__logo-wrapper">
           <img
-            src={team.logoUrl ?? `https://a.espncdn.com/i/teamlogos/nba/500/${team.abbreviation.toLowerCase()}.png`}
+            src={team.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${team.abbreviation.toLowerCase()}.png`}
             alt={team.name}
             className="team-header__logo"
           />

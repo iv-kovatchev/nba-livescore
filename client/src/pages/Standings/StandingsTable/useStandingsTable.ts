@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import type { IStandingEntry, SortDir, SortKey } from "../Standings.types";
 
 interface IUseStandingsTableProps {
@@ -24,7 +25,9 @@ const useStandingsTable = ({
     return (a[sortKey] - b[sortKey]) * mul;
   });
 
-  return { sorted };
+  const navigate = useNavigate();
+
+  return { sorted, navigate };
 };
 
 export default useStandingsTable;

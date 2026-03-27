@@ -4,6 +4,7 @@ export interface IGameDetailTeam {
   city: string;
   abbreviation: string;
   colors: string[];
+  logo?: string;
 }
 
 export interface IGameDetailArena {

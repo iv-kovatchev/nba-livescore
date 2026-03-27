@@ -28,7 +28,7 @@ const QuarterScores = ({ game }: QuarterScoresProps) => {
             <tr>
               <td className="quarter-scores__team-cell">
                 <img
-                  src={`https://a.espncdn.com/i/teamlogos/nba/500/${game.awayTeam.abbreviation.toLowerCase()}.png`}
+                  src={game.awayTeam.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${game.awayTeam.abbreviation.toLowerCase()}.png`}
                   alt={game.awayTeam.name}
                   className="quarter-scores__logo"
                 />
@@ -44,7 +44,7 @@ const QuarterScores = ({ game }: QuarterScoresProps) => {
             <tr>
               <td className="quarter-scores__team-cell">
                 <img
-                  src={`https://a.espncdn.com/i/teamlogos/nba/500/${game.homeTeam.abbreviation.toLowerCase()}.png`}
+                  src={game.homeTeam.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${game.homeTeam.abbreviation.toLowerCase()}.png`}
                   alt={game.homeTeam.name}
                   className="quarter-scores__logo"
                 />
