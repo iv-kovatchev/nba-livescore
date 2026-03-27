@@ -23,15 +23,12 @@ const StandingsTable = ({
   sortDir,
   onSort,
 }: StaindingsTableProps) => {
-  const { sorted } = useStandingsTable({
+  const { sorted, navigate } = useStandingsTable({
     entries,
     sortKey,
     sortDir,
     onSort,
   });
-
-
-  console.log(entries);
 
   return (
     <div className="standings__table-wrapper">
@@ -67,11 +64,15 @@ const StandingsTable = ({
                     ? "standings__row--play-in"
                     : ""
               }
+              onClick={() => navigate(`/teams/${entry.team._id}`)}
             >
               <td className="standings__rank">{index + 1}</td>
               <td className="standings__team-cell">
                 <img
-                  src={entry.team.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${entry.team.abbreviation.toLowerCase()}.png`}
+                  src={
+                    entry.team.logo ??
+                    `https://a.espncdn.com/i/teamlogos/nba/500/${entry.team.abbreviation.toLowerCase()}.png`
+                  }
                   alt={entry.team.name}
                   className="standings__logo"
                 />
