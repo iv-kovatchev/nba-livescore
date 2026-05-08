@@ -17,15 +17,28 @@ router.get("/", async (req: Request, res: Response) => {
 
     // Aggregate home and away records
     const result = await Game.aggregate([
-      { $match: { status: "final" } },
+      {
+        $match: {
+          status: "final",
+          $or: [{ postseason: false }, { postseason: { $exists: false } }],
+        },
+      },
       {
         $facet: {
           home: [
             {
               $group: {
                 _id: "$homeTeam",
-                wins: { $sum: { $cond: [{ $gt: ["$homeScore", "$awayScore"] }, 1, 0] } },
-                losses: { $sum: { $cond: [{ $lt: ["$homeScore", "$awayScore"] }, 1, 0] } },
+                wins: {
+                  $sum: {
+                    $cond: [{ $gt: ["$homeScore", "$awayScore"] }, 1, 0],
+                  },
+                },
+                losses: {
+                  $sum: {
+                    $cond: [{ $lt: ["$homeScore", "$awayScore"] }, 1, 0],
+                  },
+                },
               },
             },
           ],
@@ -33,8 +46,16 @@ router.get("/", async (req: Request, res: Response) => {
             {
               $group: {
                 _id: "$awayTeam",
-                wins: { $sum: { $cond: [{ $gt: ["$awayScore", "$homeScore"] }, 1, 0] } },
-                losses: { $sum: { $cond: [{ $lt: ["$awayScore", "$homeScore"] }, 1, 0] } },
+                wins: {
+                  $sum: {
+                    $cond: [{ $gt: ["$awayScore", "$homeScore"] }, 1, 0],
+                  },
+                },
+                losses: {
+                  $sum: {
+                    $cond: [{ $lt: ["$awayScore", "$homeScore"] }, 1, 0],
+                  },
+                },
               },
             },
           ],
@@ -91,11 +112,11 @@ router.get("/", async (req: Request, res: Response) => {
 
     // Sort by conference then wins
     const east = standings
-      .filter(s => s.team.conference === "East")
+      .filter((s) => s.team.conference === "East")
       .sort((a, b) => b.wins - a.wins);
 
     const west = standings
-      .filter(s => s.team.conference === "West")
+      .filter((s) => s.team.conference === "West")
       .sort((a, b) => b.wins - a.wins);
 
     const data = { east, west };

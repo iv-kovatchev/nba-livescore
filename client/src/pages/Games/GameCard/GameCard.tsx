@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./GameCard.scss";
 import type { IGame } from "../Games.types";
+import { FiAward } from "../../../components/Icons";
 
 interface GameCardProps {
   game: IGame;
@@ -14,7 +15,16 @@ const GameCard = ({ game }: GameCardProps) => {
   console.log(game.awayTeam.logo);
 
   return (
-    <div className="game-card" onClick={handleClick}>
+    <div
+      className={`game-card ${game.postseason ? "game-card--playoff" : ""}`}
+      onClick={handleClick}
+    >
+      {game.postseason && (
+        <div className="game-card__playoff-label">
+          <FiAward size={12} />
+          Playoffs
+        </div>
+      )}
       <div className="game-card__status">
         {game.status === "live" && (
           <span className="game-card__status-badge game-card__status-badge--live">
@@ -40,7 +50,10 @@ const GameCard = ({ game }: GameCardProps) => {
         <div className="game-card__team">
           <img
             className="game-card__team-logo"
-            src={game.awayTeam.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${game.awayTeam.abbreviation.toLowerCase()}.png`}
+            src={
+              game.awayTeam.logo ??
+              `https://a.espncdn.com/i/teamlogos/nba/500/${game.awayTeam.abbreviation.toLowerCase()}.png`
+            }
             alt={game.awayTeam.name}
           />
           <span className="game-card__team-name">{game.awayTeam.city}</span>
@@ -72,7 +85,10 @@ const GameCard = ({ game }: GameCardProps) => {
         <div className="game-card__team game-card__team--home">
           <img
             className="game-card__team-logo"
-            src={game.homeTeam.logo ?? `https://a.espncdn.com/i/teamlogos/nba/500/${game.homeTeam.abbreviation.toLowerCase()}.png`}
+            src={
+              game.homeTeam.logo ??
+              `https://a.espncdn.com/i/teamlogos/nba/500/${game.homeTeam.abbreviation.toLowerCase()}.png`
+            }
             alt={game.homeTeam.name}
           />
           <span className="game-card__team-name">{game.homeTeam.city}</span>

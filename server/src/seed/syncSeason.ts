@@ -18,8 +18,8 @@ const syncSeason = async () => {
   //await Game.deleteMany({});
 
   // Sync from October 2025 to June 2026
-  const start = new Date("2025-10-20");
-  const end = new Date("2026-04-20");
+  const start = new Date("2026-04-14");
+  const end = new Date("2026-04-17");
 
   const current = new Date(start);
 

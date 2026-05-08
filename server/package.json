@@ -10,7 +10,8 @@
     "seed": "ts-node src/seed/index.ts",
     "sync-season": "ts-node src/seed/syncSeason.ts",
     "backfill": "ts-node src/seed/backfillQuarters.ts",
-    "seed:players": "ts-node src/seed/players.ts"
+    "seed:players": "ts-node src/seed/players.ts",
+    "mark:playoffs": "ts-node src/seed/markPlayoffs.ts"
   },
   "keywords": [],
   "author": "",

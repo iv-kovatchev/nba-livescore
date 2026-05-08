@@ -11,6 +11,7 @@ export interface IGame extends Document {
   clock: string;
   arena: mongoose.Types.ObjectId;
   externalId: number;
+  postseason: boolean;
   homeQ1: number | null;
   homeQ2: number | null;
   homeQ3: number | null;
@@ -34,6 +35,7 @@ const GameSchema = new Schema<IGame>({
     enum: ["scheduled", "live", "final"],
     default: "scheduled",
   },
+  postseason: { type: Boolean, default: false },
   quarter: { type: Number, default: 0 },
   clock: { type: String, default: "" },
   arena: { type: Schema.Types.ObjectId, ref: "Arena" },
