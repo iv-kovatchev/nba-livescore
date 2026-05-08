@@ -22,5 +22,6 @@ export interface IGame {
     name: string;
     city: string;
   };
+  postseason: boolean;
   sportRadarId: string;
 }

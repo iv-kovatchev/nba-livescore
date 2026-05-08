@@ -1,4 +1,4 @@
-@use '../../../styles/variables/mixins' as *;
+@use "../../../styles/variables/mixins" as *;
 
 .game-card {
   background: var(--bg-secondary);
@@ -7,6 +7,8 @@
   padding: var(--space-5);
   cursor: pointer;
   transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
     background: var(--bg-elevated);
@@ -112,5 +114,40 @@
     color: var(--text-muted);
     text-align: center;
     @include truncate;
+  }
+
+  &--playoff {
+    border-color: #c9a84c;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #c9a84c, #f0d080);
+    }
+
+    &:hover {
+      border-color: #c9a84c;
+      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.2);
+    }
+  }
+
+  &__playoff-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    color: #c9a84c;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+
+    svg {
+      color: #c9a84c;
+    }
   }
 }
