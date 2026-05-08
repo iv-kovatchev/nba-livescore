@@ -37,6 +37,7 @@ export const syncGamesByDate = async (date: string) => {
         clock: eg.time ?? "",
         arena: homeTeam.arena,
         externalId: eg.id,
+        postseason: eg.postseason ?? false,
         homeQ1: eg.home_q1,
         homeQ2: eg.home_q2,
         homeQ3: eg.home_q3,
