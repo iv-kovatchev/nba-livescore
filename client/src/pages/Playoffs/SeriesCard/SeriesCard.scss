@@ -1,0 +1,276 @@
+.series-card {
+  background: var(--color-surface);
+  border: 1px solid #c9a84c;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #c9a84c, #f0d080);
+  }
+
+  &:hover {
+    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+  }
+
+  &--finished {
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__live-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    align-self: flex-start;
+    background: rgba(230, 57, 70, 0.15);
+    color: var(--accent-secondary);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    letter-spacing: 0.1em;
+    padding: var(--space-1) var(--space-2);
+    border-radius: 4px;
+    margin-bottom: var(--space-3);
+  }
+
+  &__live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-secondary);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.8);
+    }
+  }
+
+  &__summary {
+    padding: var(--space-4);
+    padding-right: calc(var(--space-4) + 60px);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+
+    &:hover {
+      background: var(--color-surface-hover);
+    }
+  }
+
+  &__team {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    transition: opacity 0.15s ease;
+
+    &--eliminated {
+      opacity: 0.35;
+    }
+  }
+
+  &__logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  &__team-name {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__team-city {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    line-height: 1.2;
+  }
+
+  &__team-nickname {
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__wins {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    min-width: 24px;
+    text-align: right;
+    line-height: 1;
+
+    &--champion {
+      color: #c9a84c;
+    }
+  }
+
+  &__vs {
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.05em;
+    padding-left: calc(36px + var(--space-3));
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-3);
+    margin-top: var(--space-1);
+  }
+
+  &__footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  &__status {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+
+  &__games-played {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+  }
+
+  &__chevron {
+    color: var(--color-text-secondary);
+    transition: transform 0.25s ease;
+    display: flex;
+    align-items: center;
+
+    &--expanded {
+      transform: rotate(180deg);
+    }
+  }
+
+  // Expand/collapse animation
+  &__games {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+
+    &--expanded {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  &__games-inner {
+    overflow: hidden;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid var(--color-border);
+
+    thead tr {
+      background: var(--color-surface-hover);
+    }
+
+    th {
+      font-size: var(--text-xs);
+      font-weight: var(--font-bold);
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: var(--space-2) var(--space-3);
+      text-align: left;
+    }
+
+    td {
+      padding: 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  &__row {
+    transition: background 0.1s ease;
+
+    &--clickable {
+      cursor: pointer;
+
+      &:hover {
+        background: var(--color-surface-hover);
+      }
+    }
+
+    &--live {
+      background: rgba(34, 197, 94, 0.05);
+    }
+  }
+
+  &__game-num {
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    color: var(--color-text-secondary);
+    padding: var(--space-3) var(--space-3);
+  }
+
+  &__score {
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    padding: var(--space-3) var(--space-3);
+
+    &--winner {
+      color: #c9a84c;
+    }
+  }
+
+  &__game-status {
+    font-size: var(--text-xs);
+    padding: var(--space-3) var(--space-3);
+
+    &--live {
+      color: var(--color-live);
+      font-weight: var(--font-bold);
+    }
+
+    &--final {
+      color: var(--color-text-secondary);
+    }
+
+    &--scheduled {
+      color: var(--color-text-secondary);
+      opacity: 0.6;
+    }
+  }
+}

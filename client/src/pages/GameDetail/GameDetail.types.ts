@@ -27,6 +27,7 @@ export interface IGameDetail {
   clock: string;
   arena: IGameDetailArena;
   externalId: number;
+  postseason: boolean;
   homeQ1: number | null;
   homeQ2: number | null;
   homeQ3: number | null;

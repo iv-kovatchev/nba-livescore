@@ -11,9 +11,44 @@
   &__status {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
+    justify-content: space-between;
     margin-bottom: var(--space-6);
+
+    @include md {
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+  }
+
+  &__status-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    @include md {
+      flex: 0 0 100%;
+    }
+  }
+
+  &__status-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+
+    @include md {
+      display: none;
+    }
+  }
+
+  &__status-center {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    justify-content: center;
+
+    include md {
+      justify-content: flex-start;
+    }
   }
 
   &__status-badge {
@@ -29,6 +64,14 @@
     &--live {
       background: rgba(230, 57, 70, 0.15);
       color: var(--accent-secondary);
+    }
+
+    &--playoff {
+      background: rgba(201, 168, 76, 0.15);
+      color: #c9a84c;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
   }
 

@@ -6,6 +6,7 @@ import Teams from "./pages/Teams/Teams";
 import TeamDetails from "./pages/TeamDetails/TeamDetails";
 import Players from "./pages/Players/Players";
 import GameDetail from "./pages/GameDetail/GameDetail";
+import Playoffs from "./pages/Playoffs/Playoffs";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="games" element={<Games />} />
           <Route path="games/:id" element={<GameDetail />} />
           <Route path="standings" element={<Standings />} />
+          <Route path="playoffs" element={<Playoffs />} />
           <Route path="teams" element={<Teams />} />
           <Route path="teams/:id" element={<TeamDetails />} />
           <Route path="players" element={<Players />} />
