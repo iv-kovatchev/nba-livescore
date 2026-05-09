@@ -98,7 +98,7 @@ const BoxScore = ({ stats, loading, homeTeam, awayTeam }: BoxScoreProps) => {
             </thead>
             <tbody>
               {sortedStats.map((stat) => (
-                <tr key={stat.id}>
+                <tr key={stat.player.externalId}>
                   <td className="box-score__player-cell">
                     <span className="box-score__jersey">
                       #{stat.player.jerseyNumber}

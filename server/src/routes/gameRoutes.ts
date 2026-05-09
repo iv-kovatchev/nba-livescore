@@ -39,14 +39,67 @@ router.get("/by-date", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/:id", async (req: Request, res: Response) => {
+router.get("/playoffs", async (req: Request, res: Response) => {
   try {
-    const game = await Game.findById(req.params.id)
+    const games = await Game.find({ postseason: true })
       .populate("homeTeam")
       .populate("awayTeam")
-      .populate("arena");
-    if (!game) return res.status(404).json({ message: "Game not found" });
-    res.json(game);
+      .populate("arena")
+      .sort({ date: 1 });
+    res.json(games);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get("/playoffs/series", async (req: Request, res: Response) => {
+  try {
+    const games = await Game.find({ postseason: true })
+      .populate("homeTeam")
+      .populate("awayTeam")
+      .sort({ date: 1 });
+
+    // Group games by series (pair of teams)
+    const seriesMap = new Map<string, any>();
+
+    for (const game of games) {
+      const home = game.homeTeam as any;
+      const away = game.awayTeam as any;
+
+      // Create consistent key regardless of home/away
+      const ids = [home._id.toString(), away._id.toString()].sort();
+      const key = ids.join("-");
+
+      if (!seriesMap.has(key)) {
+        const team1 = home._id.toString() === ids[0] ? home : away;
+        const team2 = home._id.toString() === ids[0] ? away : home;
+
+        seriesMap.set(key, {
+          team1,
+          team2,
+          team1Wins: 0,
+          team2Wins: 0,
+          games: [],
+        });
+      }
+
+      const series = seriesMap.get(key);
+      series.games.push(game);
+
+      if (game.status === "final") {
+        const homeWon = game.homeScore > game.awayScore;
+        if (homeWon) {
+          if (home._id.toString() === ids[0]) series.team1Wins++;
+          else series.team2Wins++;
+        } else {
+          if (away._id.toString() === ids[0]) series.team1Wins++;
+          else series.team2Wins++;
+        }
+      }
+    }
+
+    const series = Array.from(seriesMap.values());
+    res.json(series);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -122,6 +175,19 @@ router.get("/:id/stats", async (req: Request, res: Response) => {
     return res.json(rawStats);
   } catch (error) {
     console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get("/:id", async (req: Request, res: Response) => {
+  try {
+    const game = await Game.findById(req.params.id)
+      .populate("homeTeam")
+      .populate("awayTeam")
+      .populate("arena");
+    if (!game) return res.status(404).json({ message: "Game not found" });
+    res.json(game);
+  } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
 });

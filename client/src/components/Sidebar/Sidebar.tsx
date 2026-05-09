@@ -10,6 +10,7 @@ import {
   FiChevronLeft,
 } from "../Icons";
 import "./Sidebar.scss";
+import { FiTrendingUp } from "react-icons/fi";
 
 interface SidebarProps {
   theme: "light" | "dark";
@@ -31,11 +32,13 @@ const Sidebar = ({
       className={`sidebar ${showToggle && !collapsed ? "sidebar--expanded" : ""}`}
     >
       <div className="sidebar__header">
-        <div className={`sidebar__logo ${collapsed && "sidebar__logo--collapsed"}`}>
+        <div
+          className={`sidebar__logo ${collapsed && "sidebar__logo--collapsed"}`}
+        >
           <div className="sidebar__logo-icon">N</div>
-            <span className="sidebar__logo-text">
-              NBA<span>LIVE</span>
-            </span>
+          <span className="sidebar__logo-text">
+            NBA<span>LIVE</span>
+          </span>
         </div>
         {showToggle && (
           <button className="sidebar__toggle" onClick={onToggle}>
@@ -67,6 +70,15 @@ const Sidebar = ({
         >
           <FiAward />
           {!collapsed && <span>Standings</span>}
+        </NavLink>
+        <NavLink
+          to="/playoffs"
+          className={({ isActive }) =>
+            `sidebar__nav-item ${isActive ? "sidebar__nav-item--active" : ""}`
+          }
+        >
+          <FiTrendingUp />
+          {!collapsed && <span>Playoffs</span>}
         </NavLink>
 
         <span
