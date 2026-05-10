@@ -8,9 +8,11 @@ import {
   FiMoon,
   FiChevronRight,
   FiChevronLeft,
+  FiGlobe,
 } from "../Icons";
 import "./Sidebar.scss";
 import { FiTrendingUp } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 interface SidebarProps {
   theme: "light" | "dark";
@@ -27,6 +29,14 @@ const Sidebar = ({
   showToggle,
   onToggle,
 }: SidebarProps) => {
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const next = i18n.language === "en" ? "bg" : "en";
+    i18n.changeLanguage(next);
+    localStorage.setItem("language", next);
+  };
+
   return (
     <aside
       className={`sidebar ${showToggle && !collapsed ? "sidebar--expanded" : ""}`}
@@ -47,6 +57,13 @@ const Sidebar = ({
         )}
       </div>
 
+      <div className="sidebar__lang">
+        <button className="sidebar__lang-btn" onClick={toggleLanguage}>
+          <FiGlobe />
+          {!collapsed && <span>{i18n.language === "en" ? "EN" : "BG"}</span>}
+        </button>
+      </div>
+
       <nav className="sidebar__nav">
         <span
           className={`sidebar__nav-label ${collapsed && "sidebar__nav-label--collapsed"}`}
@@ -60,7 +77,7 @@ const Sidebar = ({
           }
         >
           <FiActivity />
-          {!collapsed && <span>Games</span>}
+          {!collapsed && <span>{t("sidebar.games")}</span>}
         </NavLink>
         <NavLink
           to="/standings"
@@ -69,7 +86,7 @@ const Sidebar = ({
           }
         >
           <FiAward />
-          {!collapsed && <span>Standings</span>}
+          {!collapsed && <span>{t("sidebar.standings")}</span>}
         </NavLink>
         <NavLink
           to="/playoffs"
@@ -78,7 +95,7 @@ const Sidebar = ({
           }
         >
           <FiTrendingUp />
-          {!collapsed && <span>Playoffs</span>}
+          {!collapsed && <span>{t("sidebar.playoffs")}</span>}
         </NavLink>
 
         <span
@@ -93,7 +110,7 @@ const Sidebar = ({
           }
         >
           <FiUsers />
-          {!collapsed && <span>Teams</span>}
+          {!collapsed && <span>{t("sidebar.teams")}</span>}
         </NavLink>
         <NavLink
           to="/players"
@@ -102,7 +119,7 @@ const Sidebar = ({
           }
         >
           <FiUser />
-          {!collapsed && <span>Players</span>}
+          {!collapsed && <span>{t("sidebar.players")}</span>}
         </NavLink>
       </nav>
 
@@ -110,7 +127,11 @@ const Sidebar = ({
         <button className="sidebar__theme-toggle" onClick={toggleTheme}>
           {theme === "dark" ? <FiSun /> : <FiMoon />}
           {!collapsed && (
-            <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+            <span>
+              {theme === "dark"
+                ? t("sidebar.lightMode")
+                : t("sidebar.darkMode")}
+            </span>
           )}
         </button>
       </div>

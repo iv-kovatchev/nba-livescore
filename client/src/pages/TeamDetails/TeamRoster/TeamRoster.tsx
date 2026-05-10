@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { ITeamPlayer } from "../TeamDetails.types";
 import "./TeamRoster.scss";
 import useTeamRoster from "./useTeamRoster";
@@ -9,25 +10,26 @@ interface TeamRosterProps {
 }
 
 const TeamRoster = ({ players, loading, teamColor }: TeamRosterProps) => {
+  const { t } = useTranslation();
   const { getInitials } = useTeamRoster();
 
   if (loading) {
-    return <div className="team-roster__loading">Loading roster...</div>;
+    return <div className="team-roster__loading">{t('teams.rosterLoading')}</div>;
   }
 
   return (
     <div className="team-roster">
-      <h2 className="team-roster__title">Roster</h2>
+      <h2 className="team-roster__title">{t('teams.roster')}</h2>
       <div className="team-roster__table-wrapper">
         <table className="team-roster__table">
           <thead>
             <tr>
-              <th className="team-roster__num">#</th>
-              <th className="team-roster__player-col">Player</th>
-              <th>POS</th>
-              <th>HT</th>
-              <th>WT</th>
-              <th>Country</th>
+              <th className="team-roster__num">{t('teams.number')}</th>
+              <th className="team-roster__player-col">{t('teams.player')}</th>
+              <th>{t('teams.position')}</th>
+              <th>{t('teams.height')}</th>
+              <th>{t('teams.weight')}</th>
+              <th>{t('teams.country')}</th>
             </tr>
           </thead>
           <tbody>

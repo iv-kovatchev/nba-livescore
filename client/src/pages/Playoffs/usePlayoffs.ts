@@ -2,25 +2,25 @@ import { useMemo, useState } from 'react';
 import type { IPlayoffSeries } from './Playoffs.types';
 import { usePlayoffsSeries } from '../../api/games/usePlayoffsSeries';
 
-interface IPlayoffRound {
-  label: string;
+export interface IPlayoffRound {
+  labelKey: string;
   series: IPlayoffSeries[];
 }
 
-const ROUND_ORDER = ['First Round', 'Second Round', 'Conference Finals', 'NBA Finals'];
+const ROUND_ORDER = ['playoffs.firstRound', 'playoffs.secondRound', 'playoffs.conferenceFinals', 'playoffs.nbaFinals'];
 
 const detectRound = (series: IPlayoffSeries): string => {
-  if (series.games.length === 0) return 'First Round';
+  if (series.games.length === 0) return 'playoffs.firstRound';
   const earliest = new Date(series.games[0].date);
   const month = earliest.getUTCMonth();
 
-  if (month === 3) return 'First Round';
+  if (month === 3) return 'playoffs.firstRound';
   if (month === 4) {
     const day = earliest.getUTCDate();
-    if (day <= 20) return 'Second Round';
-    return 'Conference Finals';
+    if (day <= 20) return 'playoffs.secondRound';
+    return 'playoffs.conferenceFinals';
   }
-  return 'NBA Finals';
+  return 'playoffs.nbaFinals';
 };
 
 const groupByRound = (allSeries: IPlayoffSeries[]): IPlayoffRound[] => {
@@ -32,7 +32,7 @@ const groupByRound = (allSeries: IPlayoffSeries[]): IPlayoffRound[] => {
     map[round].push(s);
   }
 
-  return ROUND_ORDER.filter((r) => map[r]).map((r) => ({ label: r, series: map[r] }));
+  return ROUND_ORDER.filter((r) => map[r]).map((r) => ({ labelKey: r, series: map[r] }));
 };
 
 export const usePlayoffs = () => {

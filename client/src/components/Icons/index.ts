@@ -13,4 +13,5 @@ export {
   FiMenu,
   FiX,
   FiInfo,
+  FiGlobe,
 } from 'react-icons/fi';

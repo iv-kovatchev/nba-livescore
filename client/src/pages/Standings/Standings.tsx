@@ -1,9 +1,11 @@
 import "./Standings.scss";
+import { useTranslation } from "react-i18next";
 import { useTeamsStandings } from "../../api/standings/standings";
 import useStandings from "./useStandings";
 import StandingsTable from "./StandingsTable/StandingsTable";
 
 const Standings = () => {
+  const { t } = useTranslation();
   const { data, isLoading } = useTeamsStandings();
 
   const {
@@ -16,39 +18,39 @@ const Standings = () => {
   } = useStandings();
 
   if (isLoading) {
-    return <div className="standings__loading">Loading standings...</div>;
+    return <div className="standings__loading">{t('standings.loading')}</div>;
   }
 
   if (!data) {
-    return <div className="standings__error">Failed to load standings</div>;
+    return <div className="standings__error">{t('standings.error')}</div>;
   }
 
   return (
     <div className="standings">
-      <h1 className="standings__title">NBA Standings</h1>
-      <p className="standings__subtitle">2025-26 Regular Season</p>
+      <h1 className="standings__title">{t('standings.title')}</h1>
+      <p className="standings__subtitle">{t('standings.subtitle')}</p>
 
       <div className="standings__tabs">
         <button
           className={`standings__tab ${activeTab === "east" ? "standings__tab--active" : ""}`}
           onClick={switchToEast}
         >
-          Eastern Conference
+          {t('standings.east')}
         </button>
         <button
           className={`standings__tab ${activeTab === "west" ? "standings__tab--active" : ""}`}
           onClick={switchToWest}
         >
-          Western Conference
+          {t('standings.west')}
         </button>
       </div>
 
       <div className="standings__legend">
         <span className="standings__legend-item standings__legend-item--playoff">
-          Playoff
+          {t('standings.playoff')}
         </span>
         <span className="standings__legend-item standings__legend-item--play-in">
-          Play-In
+          {t('standings.playIn')}
         </span>
       </div>
 

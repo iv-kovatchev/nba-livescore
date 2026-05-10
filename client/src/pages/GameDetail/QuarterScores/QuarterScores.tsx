@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { IGameDetail } from "../GameDetail.types";
 import "./QuarterScores.scss";
 
@@ -6,22 +7,23 @@ interface QuarterScoresProps {
 }
 
 const QuarterScores = ({ game }: QuarterScoresProps) => {
+  const { t } = useTranslation();
   const hasOT = game.homeOT !== null || game.awayOT !== null;
 
   return (
     <div className="quarter-scores">
-      <h3 className="quarter-scores__title">Quarter Scores</h3>
+      <h3 className="quarter-scores__title">{t('gameDetail.quarterScores')}</h3>
       <div className="quarter-scores__table-wrapper">
         <table className="quarter-scores__table">
           <thead>
             <tr>
-              <th className="quarter-scores__team-col">Team</th>
+              <th className="quarter-scores__team-col">{t('gameDetail.team')}</th>
               <th>Q1</th>
               <th>Q2</th>
               <th>Q3</th>
               <th>Q4</th>
               {hasOT && <th>OT</th>}
-              <th className="quarter-scores__total">T</th>
+              <th className="quarter-scores__total">{t('gameDetail.total')}</th>
             </tr>
           </thead>
           <tbody>
