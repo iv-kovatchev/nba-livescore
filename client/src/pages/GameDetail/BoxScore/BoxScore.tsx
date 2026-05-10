@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./BoxScore.scss";
 import type { IGameDetailTeam, IPlayerStat } from "../GameDetail.types";
 import Tooltip from "../../../components/Tooltip/Tooltip";
@@ -11,6 +12,7 @@ interface BoxScoreProps {
 }
 
 const BoxScore = ({ stats, loading, homeTeam, awayTeam }: BoxScoreProps) => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<"home" | "away">("home");
 
   const homeStats = stats.filter(
@@ -20,12 +22,11 @@ const BoxScore = ({ stats, loading, homeTeam, awayTeam }: BoxScoreProps) => {
     (s) => s.team.abbreviation === awayTeam.abbreviation,
   );
   const activeStats = activeTab === "home" ? homeStats : awayStats;
-
   const sortedStats = [...activeStats].sort((a, b) => b.pts - a.pts);
 
   return (
     <div className="box-score">
-      <h3 className="box-score__title">Box Score</h3>
+      <h3 className="box-score__title">{t('gameDetail.boxScore')}</h3>
 
       <div className="box-score__tabs">
         <button
@@ -53,46 +54,44 @@ const BoxScore = ({ stats, loading, homeTeam, awayTeam }: BoxScoreProps) => {
       </div>
 
       {loading ? (
-        <div className="box-score__loading">Loading stats...</div>
+        <div className="box-score__loading">{t('gameDetail.loadingStats')}</div>
       ) : sortedStats.length === 0 ? (
-        <div className="box-score__empty">No stats available</div>
+        <div className="box-score__empty">{t('gameDetail.noStats')}</div>
       ) : (
         <div className="box-score__table-wrapper">
           <table className="box-score__table">
             <thead>
               <tr>
-                <th className="box-score__player-col">Player</th>
+                <th className="box-score__player-col">{t('gameDetail.player')}</th>
                 <th>
-                  <Tooltip text="Minutes Played">MIN</Tooltip>
+                  <Tooltip text={t('gameDetail.minutesPlayed')}>MIN</Tooltip>
                 </th>
                 <th>
-                  <Tooltip text="Points">PTS</Tooltip>
+                  <Tooltip text={t('gameDetail.points')}>PTS</Tooltip>
                 </th>
                 <th>
-                  <Tooltip text="Rebounds">REB</Tooltip>
+                  <Tooltip text={t('gameDetail.rebounds')}>REB</Tooltip>
                 </th>
                 <th>
-                  <Tooltip text="Assists">AST</Tooltip>
+                  <Tooltip text={t('gameDetail.assists')}>AST</Tooltip>
                 </th>
                 <th>
-                  <Tooltip text="Steals">STL</Tooltip>
+                  <Tooltip text={t('gameDetail.steals')}>STL</Tooltip>
                 </th>
                 <th>
-                  <Tooltip text="Blocks">BLK</Tooltip>
+                  <Tooltip text={t('gameDetail.blocks')}>BLK</Tooltip>
                 </th>
                 <th>
-                  <Tooltip text="Field Goals Made / Attempted">FG</Tooltip>
+                  <Tooltip text={t('gameDetail.fieldGoals')}>FG</Tooltip>
                 </th>
                 <th>
-                  <Tooltip text="3-Pointers Made / Attempted">3P</Tooltip>
+                  <Tooltip text={t('gameDetail.threePointers')}>3P</Tooltip>
                 </th>
                 <th>
-                  <Tooltip text="Free Throws Made / Attempted">FT</Tooltip>
+                  <Tooltip text={t('gameDetail.freeThrows')}>FT</Tooltip>
                 </th>
                 <th>
-                  <Tooltip maxWidth={200} text="Plus / Minus — team point differential while player is on court">
-                    +/-
-                  </Tooltip>
+                  <Tooltip maxWidth={200} text={t('gameDetail.plusMinus')}>+/-</Tooltip>
                 </th>
               </tr>
             </thead>
@@ -119,21 +118,13 @@ const BoxScore = ({ stats, loading, homeTeam, awayTeam }: BoxScoreProps) => {
                   <td>{stat.ast}</td>
                   <td>{stat.stl}</td>
                   <td>{stat.blk}</td>
-                  <td>
-                    {stat.fgm}/{stat.fga}
-                  </td>
-                  <td>
-                    {stat.fg3m}/{stat.fg3a}
-                  </td>
-                  <td>
-                    {stat.ftm}/{stat.fta}
-                  </td>
+                  <td>{stat.fgm}/{stat.fga}</td>
+                  <td>{stat.fg3m}/{stat.fg3a}</td>
+                  <td>{stat.ftm}/{stat.fta}</td>
                   <td
                     className={`box-score__plus-minus ${stat.plus_minus > 0 ? "box-score__plus-minus--pos" : stat.plus_minus < 0 ? "box-score__plus-minus--neg" : ""}`}
                   >
-                    {stat.plus_minus > 0
-                      ? `+${stat.plus_minus}`
-                      : stat.plus_minus}
+                    {stat.plus_minus > 0 ? `+${stat.plus_minus}` : stat.plus_minus}
                   </td>
                 </tr>
               ))}

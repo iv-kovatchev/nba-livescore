@@ -4,6 +4,7 @@ import './styles/index.scss'
 import App from './App.tsx'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from './api/queryClient.ts'
+import './i18n/i18n';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

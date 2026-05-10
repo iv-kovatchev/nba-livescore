@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { usePlayers } from "./usePlayers";
 import type { IPlayer } from "./Players.types";
 import "./Players.scss";
@@ -9,6 +10,7 @@ const getInitials = (firstName: string, lastName: string) =>
   `${firstName[0]}${lastName[0]}`.toUpperCase();
 
 const Players = () => {
+  const { t } = useTranslation();
   const {
     players,
     isLoading,
@@ -28,19 +30,19 @@ const Players = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<IPlayer | null>(null);
 
   if (isLoading) {
-    return <div className="players__loading">Loading players...</div>;
+    return <div className="players__loading">{t('players.loading')}</div>;
   }
 
   return (
     <div className="players">
-      <h1 className="players__title">Players</h1>
-      <p className="players__subtitle">{players.length} players</p>
+      <h1 className="players__title">{t('players.title')}</h1>
+      <p className="players__subtitle">{players.length} {t('players.title').toLowerCase()}</p>
 
       <div className="players__filters">
         <input
           className="players__search"
           type="text"
-          placeholder="Search player..."
+          placeholder={t('players.searchPlaceholder')}
           value={search}
           onChange={(e) => setSearchAndReset(e.target.value)}
         />
@@ -49,17 +51,17 @@ const Players = () => {
           value={positionFilter}
           onChange={(e) => setPositionFilterAndReset(e.target.value)}
         >
-          <option value="">All Positions</option>
-          <option value="G">Guard</option>
-          <option value="F">Forward</option>
-          <option value="C">Center</option>
+          <option value="">{t('players.allPositions')}</option>
+          <option value="G">{t('players.guard')}</option>
+          <option value="F">{t('players.forward')}</option>
+          <option value="C">{t('players.center')}</option>
         </select>
         <select
           className="players__select"
           value={teamFilter}
           onChange={(e) => setTeamFilterAndReset(e.target.value)}
         >
-          <option value="">All Teams</option>
+          <option value="">{t('players.allTeams')}</option>
           {teams.map((team) => (
             <option key={team._id} value={team._id}>
               {team.city} {team.name}
@@ -72,12 +74,12 @@ const Players = () => {
         <table className="players__table">
           <thead>
             <tr>
-              <th className="players__player-col">Player</th>
-              <th>Team</th>
-              <th>POS</th>
-              <th className="players__hide-mobile">#</th>
-              <th className="players__hide-mobile">HT</th>
-              <th className="players__hide-mobile">Nationality</th>
+              <th className="players__player-col">{t('players.player')}</th>
+              <th>{t('players.team')}</th>
+              <th>{t('players.position')}</th>
+              <th className="players__hide-mobile">{t('players.number')}</th>
+              <th className="players__hide-mobile">{t('players.height')}</th>
+              <th className="players__hide-mobile">{t('players.nationality')}</th>
             </tr>
           </thead>
           <tbody>
@@ -87,11 +89,7 @@ const Players = () => {
                   <div className="players__player-cell">
                     <div
                       className="players__avatar"
-                      style={
-                        {
-                          "--team-color": player.team.colors[0],
-                        } as React.CSSProperties
-                      }
+                      style={{ "--team-color": player.team.colors[0] } as React.CSSProperties}
                     >
                       {player.photoUrl ? (
                         <img

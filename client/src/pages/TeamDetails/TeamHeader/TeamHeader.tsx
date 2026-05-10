@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { ITeamDetails } from "../TeamDetails.types";
 import "./TeamHeader.scss";
 
@@ -6,7 +7,7 @@ interface TeamHeaderProps {
 }
 
 const TeamHeader = ({ team }: TeamHeaderProps) => {
-  console.log("TeamHeader rendered with team:", team);
+  const { t } = useTranslation();
 
   return (
     <div
@@ -30,9 +31,9 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
           <h1 className="team-header__name">{team.name}</h1>
           <div className="team-header__meta">
             <span className="team-header__badge">
-              {team.conference === "East" ? "Eastern" : "Western"} Conference
+              {team.conference === "East" ? t('teams.eastern') : t('teams.western')}
             </span>
-            <span className="team-header__badge">{team.division}</span>
+            <span className="team-header__badge">{t(`teams.${team.division.toLowerCase()}`)}</span>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./PlayerModal.scss";
 import type { IPlayer } from "../Players.types";
 import { FiX } from "../../../components/Icons";
@@ -11,9 +12,9 @@ interface PlayerModalProps {
 const getInitials = (firstName: string, lastName: string) =>
   `${firstName[0]}${lastName[0]}`.toUpperCase();
 
-const formatBirthDate = (birthDate: string) => {
+const formatBirthDate = (birthDate: string, locale: string) => {
   if (!birthDate) return "—";
-  return new Date(birthDate).toLocaleDateString("en-US", {
+  return new Date(birthDate).toLocaleDateString(locale, {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -32,6 +33,7 @@ const calculateAge = (birthDate: string) => {
 
 const PlayerModal = ({ player, onClose }: PlayerModalProps) => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const age = calculateAge(player.birthDate);
 
   return (
@@ -81,26 +83,26 @@ const PlayerModal = ({ player, onClose }: PlayerModalProps) => {
 
         <div className="player-modal__stats">
           <div className="player-modal__stat">
-            <span className="player-modal__stat-label">Position</span>
+            <span className="player-modal__stat-label">{t('players.modalPosition')}</span>
             <span className="player-modal__stat-value">{player.position || "—"}</span>
           </div>
           <div className="player-modal__stat">
-            <span className="player-modal__stat-label">Height</span>
+            <span className="player-modal__stat-label">{t('players.modalHeight')}</span>
             <span className="player-modal__stat-value">{player.height || "—"}</span>
           </div>
           <div className="player-modal__stat">
-            <span className="player-modal__stat-label">Weight</span>
+            <span className="player-modal__stat-label">{t('players.modalWeight')}</span>
             <span className="player-modal__stat-value">{player.weight ? `${player.weight} lbs` : "—"}</span>
           </div>
           <div className="player-modal__stat">
-            <span className="player-modal__stat-label">Nationality</span>
+            <span className="player-modal__stat-label">{t('players.modalNationality')}</span>
             <span className="player-modal__stat-value">{player.nationality || "—"}</span>
           </div>
           <div className="player-modal__stat">
-            <span className="player-modal__stat-label">Born</span>
+            <span className="player-modal__stat-label">{t('players.modalBorn')}</span>
             <span className="player-modal__stat-value">
-              {formatBirthDate(player.birthDate)}
-              {age && <span className="player-modal__age"> ({age} yrs)</span>}
+              {formatBirthDate(player.birthDate, i18n.language === 'bg' ? 'bg-BG' : 'en-US')}
+              {age && <span className="player-modal__age"> ({age} {t('players.yrs')})</span>}
             </span>
           </div>
         </div>

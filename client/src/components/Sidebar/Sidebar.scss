@@ -79,6 +79,10 @@
     }
   }
 
+  &__lang {
+    padding: var(--space-3) var(--space-3) 0;
+  }
+
   &__nav {
     display: flex;
     flex-direction: column;
@@ -86,6 +90,27 @@
     padding: 16px 10px;
     flex: 1;
     overflow: hidden;
+  }
+
+  &__lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    padding: 10px 8px;
+    border-radius: 8px;
+    background: var(--bg-elevated);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    transition: all 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--text-primary);
+    }
   }
 
   &__nav-label {

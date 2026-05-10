@@ -7,9 +7,9 @@ export const getLocalDate = (offset: number): string => {
   return `${etDate.getFullYear()}-${String(etDate.getMonth() + 1).padStart(2, "0")}-${String(etDate.getDate()).padStart(2, "0")}`;
 };
 
-export const formatDisplayDate = (dateStr: string): string => {
+export const formatDisplayDate = (dateStr: string, locale: string = 'en-US'): string => {
   const date = new Date(`${dateStr}T12:00:00`);
-  return date.toLocaleDateString("en-US", {
+  return date.toLocaleDateString(locale, {
     weekday: "long",
     month: "long",
     day: "numeric",

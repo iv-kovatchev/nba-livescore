@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./GameCard.scss";
 import type { IGame } from "../Games.types";
 import { FiAward } from "../../../components/Icons";
@@ -9,10 +10,9 @@ interface GameCardProps {
 
 const GameCard = ({ game }: GameCardProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleClick = () => navigate(`/games/${game._id}`);
-
-  console.log(game.awayTeam.logo);
 
   return (
     <div
@@ -22,18 +22,18 @@ const GameCard = ({ game }: GameCardProps) => {
       {game.postseason && (
         <div className="game-card__playoff-label">
           <FiAward size={12} />
-          Playoffs
+          {t("games.playoffs")}
         </div>
       )}
       <div className="game-card__status">
         {game.status === "live" && (
           <span className="game-card__status-badge game-card__status-badge--live">
-            LIVE · Q{game.quarter} {game.clock}
+            {t("games.live")} · {game.clock}
           </span>
         )}
         {game.status === "final" && (
           <span className="game-card__status-badge game-card__status-badge--final">
-            FINAL
+            {t("games.final").toUpperCase()}
           </span>
         )}
         {game.status === "scheduled" && (
@@ -41,7 +41,7 @@ const GameCard = ({ game }: GameCardProps) => {
             {new Date(game.date).toLocaleTimeString("en-US", {
               hour: "2-digit",
               minute: "2-digit",
-            })}{" "}
+            })}
           </span>
         )}
       </div>

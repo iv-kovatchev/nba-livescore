@@ -1,8 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { FiChevronDown, FiChevronUp } from "../../../components/Icons";
 import type { IStandingEntry, SortDir, SortKey } from "../Standings.types";
 import useStandingsTable from "./useStandingsTable";
 
-interface StaindingsTableProps {
+interface StandingsTableProps {
   entries: IStandingEntry[];
   sortKey: SortKey;
   sortDir: SortDir;
@@ -17,12 +18,14 @@ const SortIcon = ({ active, dir }: { active: boolean; dir: SortDir }) => {
     <FiChevronUp className="standings__sort-icon standings__sort-icon--active" />
   );
 };
+
 const StandingsTable = ({
   entries,
   sortKey,
   sortDir,
   onSort,
-}: StaindingsTableProps) => {
+}: StandingsTableProps) => {
+  const { t } = useTranslation();
   const { sorted, navigate } = useStandingsTable({
     entries,
     sortKey,
@@ -37,19 +40,19 @@ const StandingsTable = ({
           <tr>
             <th className="standings__rank">#</th>
             <th className="standings__team-col" onClick={() => onSort("name")}>
-              Team <SortIcon active={sortKey === "name"} dir={sortDir} />
+              {t('standings.team')} <SortIcon active={sortKey === "name"} dir={sortDir} />
             </th>
             <th onClick={() => onSort("wins")}>
-              W <SortIcon active={sortKey === "wins"} dir={sortDir} />
+              {t('standings.wins')} <SortIcon active={sortKey === "wins"} dir={sortDir} />
             </th>
             <th onClick={() => onSort("losses")}>
-              L <SortIcon active={sortKey === "losses"} dir={sortDir} />
+              {t('standings.losses')} <SortIcon active={sortKey === "losses"} dir={sortDir} />
             </th>
             <th onClick={() => onSort("winPct")}>
-              PCT <SortIcon active={sortKey === "winPct"} dir={sortDir} />
+              {t('standings.winPct')} <SortIcon active={sortKey === "winPct"} dir={sortDir} />
             </th>
             <th onClick={() => onSort("gamesPlayed")} className="standings__gp">
-              GP <SortIcon active={sortKey === "gamesPlayed"} dir={sortDir} />
+              {t('standings.gamesPlayed')} <SortIcon active={sortKey === "gamesPlayed"} dir={sortDir} />
             </th>
           </tr>
         </thead>
